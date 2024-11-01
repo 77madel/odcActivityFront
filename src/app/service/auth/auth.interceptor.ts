@@ -4,8 +4,9 @@ import {LoginServiceService} from "./login-service.service";
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(LoginServiceService);  // Injecter le AuthService
-  const user = authService.getUserFormLocalStorage(); // Récupérer l'utilisateur depuis localStorage
-  const token = user?.jwtToken; // Extraire le token de l'utilisateur s'il est disponible
+  const user = authService.getUserFromLocalStorage(); // Récupérer l'utilisateur depuis localStorage
+  const token = user?.bearer; // Extraire le token de l'utilisateur s'il est disponible
+
 
   // Vérifiez si le token existe
   if (token) {

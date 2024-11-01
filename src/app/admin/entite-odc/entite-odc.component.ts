@@ -49,7 +49,7 @@ export class EntiteODCComponent {
   activiteCount: { [key: number]: number } = {}
   utilisateur: Utilisateur[] = [];
   selectedUtilisateur: Utilisateur | null = null; // Déclaration de la variable pour stocker l'utilisateur sélectionné
-
+  currentYear: number = new Date().getFullYear();
 
   isFormVisible: boolean = false;
   isTableVisible: boolean = true;

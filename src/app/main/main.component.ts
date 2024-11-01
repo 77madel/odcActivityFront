@@ -43,6 +43,7 @@ export class MainComponent implements OnInit {
   chartOptions: Partial<ChartOptions> = {}; // Utilisation de Partial pour éviter les erreurs de type
   nombreGenre: any[] = []; // Initialisé comme tableau vide
 
+
   constructor(
     private globalService: GlobalCrudService,
   ) {}

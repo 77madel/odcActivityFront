@@ -34,6 +34,7 @@ export class LoginServiceService {
         map(user => {
           if (user && user.token && this.isBrowser()) {
             localStorage.setItem('currentUser', JSON.stringify(user));
+            console.log("User logged in:", user); // Vérifiez que l'utilisateur est bien stocké
             localStorage.setItem('role', user.role); // Stocker le rôle de l'utilisateur
             this.currentUserSubject.next(user);
           }
@@ -74,22 +75,24 @@ export class LoginServiceService {
     return user ? user.email : null;
   }
 
-  getUserFormLocalStorage(): any{
-    let user!: Object;
+  getUserFromLocalStorage(): { bearer?: string, role?: string[], email?: string } | null {
+    let user: { bearer?: string, role?: string[], email?: string } | null = null;
+
     if (UtilFunction.isBrowser()) {
       const userStr = localStorage.getItem('currentUser');
+
       if (userStr) {
         try {
           user = JSON.parse(userStr);
         } catch (e) {
           console.error("Failed to parse user JSON:", e);
+          return null; // Retourne null en cas d'erreur
         }
       } else {
         console.log("No currentUser found in localStorage");
       }
     }
-    return user;
+    return user; // Retourne l'utilisateur ou null
   }
-
 
 }

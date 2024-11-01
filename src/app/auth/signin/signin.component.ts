@@ -34,6 +34,7 @@ export class SigninComponent {
   password: string = '';
   errorMessage: string = '';
   isConnected: boolean = false;
+  currentYear: number = new Date().getFullYear();
 
   constructor(
     private readonly loginService: LoginServiceService,
@@ -48,7 +49,7 @@ export class SigninComponent {
     }
   }
 
-  login() {
+  /*login() {
     this.loginService.login(this.username, this.password).subscribe(
       response => {
         console.log(response.bearer);
@@ -84,7 +85,8 @@ export class SigninComponent {
         this.password = '';
       }
     );
-  }
+  }*/
+
 
 
 /* handleSubmit() {
@@ -118,6 +120,52 @@ export class SigninComponent {
       }
     });
   }*/
+
+  login() {
+    this.loginService.login(this.username, this.password).subscribe(
+      response => {
+        // Vérifiez si le token est présent dans la réponse
+        const token = response.bearer;
+
+        if (isPlatformBrowser(this.platformId)) {
+          if (token) {
+            localStorage.setItem("bearer", token); // Stockez le token
+            localStorage.setItem("currentUser", JSON.stringify(response)); // Stockez les détails de l'utilisateur
+
+            // Vérifiez si le tableau de rôles existe et a au moins un élément
+            if (Array.isArray(response.role) && response.role.length > 0) {
+              localStorage.setItem("role", response.role[0]); // Stockez le premier rôle
+            } else {
+              this.snackBar.open("Aucun rôle trouvé dans la réponse.", "Error", { duration: 4000 });
+            }
+
+            // L'utilisateur est maintenant connecté, vous pouvez vérifier ici
+            const loggedInUser = this.loginService.getUserFromLocalStorage();
+
+            // Redirigez l'utilisateur après une connexion réussie
+            this.router.navigate(['/']);
+            this.snackBar.open("Connexion réussie", "Success", { duration: 4000 });
+          } else {
+            this.snackBar.open("Aucun token reçu dans la réponse.", "Error", { duration: 4000 });
+          }
+        }
+
+        // Réinitialisez les champs de saisie
+        this.resetForm();
+      },
+      error => {
+        console.error('Erreur de connexion :', error); // Log l'erreur
+        this.snackBar.open("Nom d'utilisateur ou mot de passe incorrect", "Error", { duration: 4000 });
+        this.resetForm();
+      }
+    );
+  }
+
+// Méthode pour réinitialiser les champs de saisie
+  private resetForm() {
+    this.username = '';
+    this.password = '';
+  }
 
 // Fonction pour décoder un token JWT
   // Fonction pour décoder un token JWT
