@@ -1,0 +1,10 @@
+@for ($implicit of dataSource(); track $implicit; let last = $last) {
+  @if (!last) {
+    <ng-container *ngTemplateOutlet="itemRef(); context: { $implicit }"/>
+    <ng-container *ngTemplateOutlet="separatorRef()"/>
+  } @else {
+    <ng-container *ngTemplateOutlet="activeItemRef(); context: { $implicit }"/>
+  }
+}
+
+<ng-content/>

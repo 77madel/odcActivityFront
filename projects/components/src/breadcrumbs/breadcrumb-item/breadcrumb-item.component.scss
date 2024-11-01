@@ -1,0 +1,59 @@
+:host {
+  font-size: var(--emr-breadcrumbs-item-font-size);
+  font-weight: var(--emr-breadcrumbs-item-font-weight);
+  color: var(--emr-breadcrumbs-item-color);
+  @apply flex gap-1.5 cursor-pointer no-underline;
+
+  .icon {
+    line-height: 11px;
+
+    ::ng-deep {
+      .emr-breadcrumb-item-icon {
+        font-size: 22px;
+        @apply w-[22px] h-[22px] flex-none;
+      }
+    }
+  }
+
+  .icon:empty {
+    @apply hidden;
+  }
+
+  .content:has(.name:empty) {
+    @apply hidden;
+  }
+
+  &:not(:last-child):hover {
+    .icon {
+      color: var(--emr-breadcrumbs-item-hover-color);
+    }
+
+    .name {
+      color: var(--emr-breadcrumbs-item-hover-color);
+      @apply underline underline-offset-1;
+    }
+  }
+
+  &:last-child {
+    @apply cursor-auto;
+    color: var(--emr-breadcrumbs-active-item-color);
+  }
+}
+
+:host-context(.emr-breadcrumbs.last-item-as-link) {
+  &:last-child {
+    color: var(--emr-breadcrumbs-item-color);
+    @apply cursor-pointer;
+
+    &:hover {
+      .icon {
+        color: var(--emr-breadcrumbs-item-hover-color);
+      }
+
+      .name {
+        color: var(--emr-breadcrumbs-item-hover-color);
+        @apply underline underline-offset-1;
+      }
+    }
+  }
+}

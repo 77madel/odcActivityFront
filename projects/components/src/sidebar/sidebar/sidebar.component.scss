@@ -1,0 +1,62 @@
+:host {
+  @apply flex flex-col overflow-x-hidden h-full w-[var(--emr-sidebar-width)] transition-all;
+
+  &.compact {
+    @apply absolute indent-0;
+  }
+
+  &.compact:not(:hover) {
+    @apply w-[var(--emr-sidebar-compact-width)] overflow-hidden;
+    --emr-navigation-item-width: var(--emr-navigation-item-height);
+    --emr-navigation-item-padding: 0;
+
+    ::ng-deep {
+      .toggle {
+        @apply hidden;
+      }
+
+      .emr-navigation-heading {
+        @apply p-0 flex items-center text-4xs;
+      }
+
+      .emr-navigation-group-menu {
+        &.is-active {
+          @apply hidden;
+        }
+      }
+
+      .emr-navigation-group-toggle {
+        @apply justify-center gap-0;
+        --emr-navigation-group-toggle-has-icon-padding-end: 0;
+
+        .icon {
+          @apply transition-all;
+        }
+
+        &:has(.icon:not(:empty)) {
+          .text {
+            @apply opacity-0 w-0 max-w-0 transition-all;
+          }
+        }
+      }
+
+      .emr-navigation-item {
+        @apply justify-center;
+
+        .inner {
+          @apply gap-0;
+        }
+
+        .icon {
+          @apply transition-all;
+        }
+
+        &:has(.icon:not(:empty)) {
+          .text {
+            @apply opacity-0 w-0 max-w-0 transition-all;
+          }
+        }
+      }
+    }
+  }
+}

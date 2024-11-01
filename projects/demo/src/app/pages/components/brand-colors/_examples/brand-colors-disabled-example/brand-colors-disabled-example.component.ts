@@ -1,0 +1,19 @@
+import { Component } from '@angular/core';
+import { BrandColorsComponent } from '@elementar/components/brand-colors';
+
+@Component({
+  selector: 'app-brand-colors-disabled-example',
+  standalone: true,
+  imports: [
+    BrandColorsComponent
+  ],
+  templateUrl: './brand-colors-disabled-example.component.html',
+  styleUrl: './brand-colors-disabled-example.component.scss'
+})
+export class BrandColorsDisabledExampleComponent {
+  selectedColor = '#08b0fe';
+
+  onColorChange(color: string): void {
+    this.selectedColor = color;
+  }
+}

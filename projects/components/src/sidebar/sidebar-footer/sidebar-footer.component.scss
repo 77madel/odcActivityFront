@@ -1,0 +1,35 @@
+:host {
+  @apply block flex-none w-full p-[var(--emr-sidebar-footer-padding)];
+
+  ::ng-deep {
+    .emr-sidebar-compact-view-mode {
+      @apply hidden;
+    }
+  }
+}
+
+:host-context(.emr-sidebar.compact:not(:hover)) {
+  @apply p-[var(--emr-sidebar-footer-compact-padding)] transition-all;
+
+  ::ng-deep {
+    .emr-sidebar-full-view-mode {
+      @apply hidden;
+    }
+
+    .emr-sidebar-compact-view-mode {
+      @apply block;
+    }
+  }
+}
+
+:host-context(.emr-sidebar.compact:hover) {
+  ::ng-deep {
+    .emr-sidebar-compact-view-mode {
+      @apply hidden;
+    }
+
+    .emr-sidebar-full-view-mode {
+      @apply block;
+    }
+  }
+}

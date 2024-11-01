@@ -1,0 +1,11 @@
+:host {
+  @apply block z-[101];
+
+  &:has(.emr-sidebar.compact) {
+    @apply z-[102]
+  }
+
+  &.is-hidden {
+    @apply hidden;
+  }
+}
